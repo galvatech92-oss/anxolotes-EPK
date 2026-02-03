@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANXOLOTES | Press Kit Oficial</title>
+    
+    <!-- Meta SEO -->
+    <meta name="description" content="Press Kit Oficial de Anxolotes. Pop Ñero desde Iztapalapa. Ska, Reggae y Fusión Biocultural.">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Space+Grotesk:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-black: #0a0a0a;
+            --color-cream: #F5E6CA;
+            --color-mauve: #E6A8B5; 
+            --color-gills: #D45D79;
+            --color-gold: #FFD700;
+            --cursor-size: 20px;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--color-cream);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* --- TEXTURA URBANA (NOISE) --- */
+        .urban-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.07;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* --- CURSOR --- */
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 15px;
+            height: 15px;
+            background-color: var(--color-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: exclusion;
+            box-shadow: 0 0 10px var(--color-gold), 0 0 20px var(--color-gold);
+            transition: width 0.3s, height 0.3s, background-color 0.3s; 
+        }
+        
+        body:hover #cursor.hovered {
+            transform: translate(-50%, -50%) scale(2.5);
+            background-color: var(--color-gills);
+            box-shadow: 0 0 25px var(--color-gills);
+        }
+
+        /* --- TIPOGRAFÍA --- */
+        .font-logo {
+            font-family: 'Shrikhand', cursive;
+            letter-spacing: 0.02em;
+        }
+
+        .psych-text {
+            color: #111;
+            -webkit-text-stroke: 1.5px var(--color-cream);
+            paint-order: stroke fill;
+            position: relative;
+            z-index: 10;
+            filter: drop-shadow(3px 3px 0px rgba(181, 127, 141, 0.8));
+            line-height: 1.1;
+        }
+        
+        @media (min-width: 768px) {
+            .psych-text {
+                -webkit-text-stroke: 3px var(--color-cream);
+                filter: drop-shadow(5px 5px 0px rgba(181, 127, 141, 0.8));
+            }
+        }
+
+        /* --- EFECTO FOCO DESCOMPUESTO (LA X) --- */
+        .highlight-x {
+            color: var(--color-gills);
+            -webkit-text-stroke: 1.5px var(--color-gold);
+            display: inline-block;
+            text-shadow: none;
+            animation: broken-bulb 3s infinite steps(1); 
+        }
+        
+        @media (min-width: 768px) {
+            .highlight-x {
+                -webkit-text-stroke: 3px var(--color-gold);
+            }
+        }
+        
+        @keyframes broken-bulb {
+            0%, 5%, 10%, 20%, 22%, 50%, 55%, 80%, 82%, 100% { opacity: 1; filter: brightness(1); color: var(--color-gills); }
+            21% { opacity: 0.3; filter: brightness(0.5); }
+            23% { opacity: 0.1; filter: brightness(0); }
+            52% { opacity: 1; filter: brightness(2) drop-shadow(0 0 10px var(--color-gold)); color: #fff; }
+            53% { opacity: 0.8; filter: brightness(1.2); color: var(--color-gills); }
+            54% { opacity: 0.2; }
+            81% { opacity: 0.5; }
+        }
+
+        /* --- FÍSICA DEL AJOLOTE (SOLO CABEZA + BRANQUIAS LARGAS) --- */
+        .axolotl-container {
+            /* Flote suave de toda la cabeza */
+            animation: float-head 6s infinite ease-in-out;
+            transform-origin: center center;
+            filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.5));
+        }
+        
+        @keyframes float-head {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* Animaciones independientes para cada branquia ("por sí solas") */
+        .gill-left-top { animation: gill-wave-left 3.5s infinite ease-in-out; transform-origin: 45px 85px; }
+        .gill-left-mid { animation: gill-wave-left 4.2s infinite ease-in-out -1s; transform-origin: 40px 100px; }
+        .gill-left-bot { animation: gill-wave-left 3.8s infinite ease-in-out -0.5s; transform-origin: 45px 120px; }
+
+        .gill-right-top { animation: gill-wave-right 3.6s infinite ease-in-out -0.8s; transform-origin: 155px 85px; }
+        .gill-right-mid { animation: gill-wave-right 4.5s infinite ease-in-out -1.5s; transform-origin: 160px 100px; }
+        .gill-right-bot { animation: gill-wave-right 3.9s infinite ease-in-out -0.2s; transform-origin: 155px 120px; }
+
+        @keyframes gill-wave-left {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(-10deg) scale(1.05); } 
+        }
+
+        @keyframes gill-wave-right {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(10deg) scale(1.05); } 
+        }
+
+        /* --- MARQUEE --- */
+        .marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            background: var(--color-gold);
+            border-top: 4px solid black;
+            border-bottom: 4px solid black;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.8);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+        
+        .marquee-content {
+            display: flex;
+            width: 200%;
+            animation: marquee 20s linear infinite;
+        }
+        
+        .marquee-item {
+            flex: 0 0 50%;
+            display: flex;
+            justify-content: space-around;
+            white-space: nowrap;
+            padding: 12px 0;
+            color: black;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+        }
+
+        @media (min-width: 768px) { .marquee-item { font-size: 1.5rem; } }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- STYLES GENERALES Y ANIMACIONES DE BOTONES --- */
+        .btn-urban {
+            background-color: var(--color-gills);
+            color: black;
+            font-weight: 900;
+            text-transform: uppercase;
+            border: 2px solid black;
+            box-shadow: 4px 4px 0px black;
+            transition: all 0.2s;
+        }
+        .btn-urban:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--color-cream); background-color: var(--color-cream); }
+        
+        .btn-urban-outline {
+            background: transparent;
+            color: var(--color-cream);
+            border: 2px solid var(--color-cream);
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 4px 4px 0px var(--color-gills);
+            transition: all 0.2s;
+        }
+        .btn-urban-outline:hover { background: var(--color-cream); color: black; transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--color-gills); }
+
+        /* --- ANIMACIÓN DE ENTRADA (POP-IN) PARA HERO BUTTONS --- */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+            70% { transform: scale(1.1) translateY(-5px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* --- ANIMACIÓN DE PULSO PARA CONTRATACIONES --- */
+        @keyframes attentionPulse {
+            0% { box-shadow: 4px 4px 0px var(--color-gills); transform: scale(1); }
+            50% { box-shadow: 8px 8px 0px var(--color-gold); transform: scale(1.02); }
+            100% { box-shadow: 4px 4px 0px var(--color-gills); transform: scale(1); }
+        }
+
+        /* CLASE SIMPLE PARA BOTÓN NORMAL (ESCUCHAR) */
+        .hero-btn-simple {
+            opacity: 0; /* Empieza invisible para el popIn */
+            animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation-delay: 0.3s;
+        }
+
+        /* CLASE COMBINADA PARA BOTÓN CONTRATACIONES (FIX DE DESAPARICIÓN) */
+        .pop-in-and-pulse {
+            opacity: 0;
+            animation: 
+                popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, 
+                attentionPulse 2s infinite ease-in-out 1.2s; /* El pulso empieza después del popIn */
+            animation-delay: 0.5s, 1.2s; /* Delay inicial del popIn, luego arranca el pulso */
+        }
+
+        /* --- SCROLL REVEAL (EFECTO TRANSICIÓN AL BAJAR) --- */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); 
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .stagger-delay:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-delay:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-delay:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-delay:nth-child(4) { transition-delay: 0.4s; }
+
+        .sticker-card { background: #1a1a1a; border: 4px solid white; box-shadow: 4px 4px 0px rgba(0,0,0,0.5); transition: all 0.4s; position: relative; }
+        .sticker-card:hover { transform: scale(1.05) rotate(-2deg) !important; box-shadow: 8px 8px 0px var(--color-gills); border-color: var(--color-cream); z-index: 10; }
+        .sticker-card:nth-child(odd) { transform: rotate(1deg); } .sticker-card:nth-child(even) { transform: rotate(-1deg); }
+    </style>
+</head>
+<body>
+    
+    <div class="urban-noise"></div>
+    <div id="cursor" class="hidden md:block"></div>
+
+    <!-- Navegación (HEADER) -->
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/20 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <div class="flex-shrink-0 cursor-pointer hover-trigger transition-transform active:scale-95" onclick="window.scrollTo(0,0)">
+                    <span class="font-logo text-xl md:text-2xl tracking-wider text-white" style="-webkit-text-stroke: 1px var(--color-cream);">AN<span class="highlight-x" style="-webkit-text-stroke: 1px var(--color-gold);">X</span>OLOTES</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#bio" class="hover-trigger text-gray-300 hover:text-[#B57F8D] transition-colors font-bold uppercase tracking-widest text-sm hover:underline decoration-[#B57F8D] underline-offset-4">Bio</a>
+                        <a href="#music" class="hover-trigger text-gray-300 hover:text-[#B57F8D] transition-colors font-bold uppercase tracking-widest text-sm hover:underline decoration-[#B57F8D] underline-offset-4">Música</a>
+                        <a href="#press" class="hover-trigger text-gray-300 hover:text-[#B57F8D] transition-colors font-bold uppercase tracking-widest text-sm hover:underline decoration-[#B57F8D] underline-offset-4">Prensa</a>
+                        <a href="#members" class="hover-trigger text-gray-300 hover:text-[#B57F8D] transition-colors font-bold uppercase tracking-widest text-sm hover:underline decoration-[#B57F8D] underline-offset-4">La Banda</a>
+                        <!-- BOTÓN CONTRATACIONES DEL HEADER (NAVBAR) -->
+                        <a href="#contact" class="hover-trigger bg-[#FFD700] text-black hover:bg-[#F5E6CA] transition-colors px-4 py-2 font-black text-sm uppercase transform -skew-x-12 border border-black shadow-[2px_2px_0_#fff]">CONTRATACIONES</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-white transition-colors hover:text-[#B57F8D]">
+                        <i data-lucide="menu" class="w-8 h-8"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hidden md:hidden bg-zinc-900 border-b border-gray-700 absolute w-full z-40 transition-all duration-300 origin-top" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#bio" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="text-white block px-3 py-4 font-bold uppercase border-b border-gray-800 hover:bg-zinc-800 transition-colors">Bio</a>
+                <a href="#music" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="text-white block px-3 py-4 font-bold uppercase border-b border-gray-800 hover:bg-zinc-800 transition-colors">Música</a>
+                <a href="#members" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="text-white block px-3 py-4 font-bold uppercase border-b border-gray-800 hover:bg-zinc-800 transition-colors">Integrantes</a>
+                <a href="#downloads" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="text-white block px-3 py-4 font-bold uppercase border-b border-gray-800 hover:bg-zinc-800 transition-colors">Descargas</a>
+                <a href="#contact" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="text-[#FFD700] block px-3 py-4 font-bold uppercase hover:bg-zinc-800 transition-colors">CONTRATACIONES</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a] pt-20 pb-20 md:pb-40">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-1/4 left-10 w-64 h-64 md:w-96 md:h-96 bg-purple-900/30 rounded-full blur-[80px] md:blur-[100px] animate-pulse"></div>
+            <div class="absolute bottom-1/4 right-10 w-64 h-64 md:w-96 md:h-96 bg-yellow-600/20 rounded-full blur-[80px] md:blur-[100px] animate-pulse delay-700"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+        </div>
+
+        <div class="relative z-10 w-full max-w-7xl flex flex-col items-center justify-center px-4 space-y-6 md:space-y-10">
+            
+            <!-- AJOLOTE RESTAURADO (Solo cabeza, branquias largas independientes) -->
+            <div class="w-56 h-56 md:w-80 md:h-80 relative axolotl-hover-trigger cursor-pointer mx-auto flex-shrink-0">
+                <div class="axolotl-container w-full h-full">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full overflow-visible">
+                        
+                        <!-- Branquias Izquierda -->
+                        <g class="gill-left-top">
+                            <path d="M 45 85 C 10 50, -20 60, 25 85" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/>
+                            <path d="M 25 85 L 15 80" stroke="#FF00FF" stroke-width="2" opacity="0.6"/>
+                        </g>
+                        <g class="gill-left-mid">
+                            <path d="M 40 100 C 0 90, -25 110, 30 105" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/>
+                            <circle cx="30" cy="105" r="5" stroke="#FFD700" stroke-width="3" fill="none" />
+                        </g>
+                        <g class="gill-left-bot">
+                            <path d="M 45 115 C 10 140, 0 160, 40 130" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/>
+                            <circle cx="40" cy="130" r="5" stroke="#FFD700" stroke-width="3" fill="none" />
+                        </g>
+
+                        <!-- Branquias Derecha -->
+                        <g class="gill-right-top">
+                            <path d="M 155 85 C 190 50, 220 60, 175 85" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/>
+                            <path d="M 175 85 L 185 80" stroke="#FF00FF" stroke-width="2" opacity="0.6"/>
+                        </g>
+                        <g class="gill-right-mid">
+                            <path d="M 160 100 C 200 90, 225 110, 170 105" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/>
+                            <circle cx="170" cy="105" r="5" stroke="#FFD700" stroke-width="3" fill="none" />
+                        </g>
+                        <g class="gill-right-bot">
+                            <path d="M 155 115 C 190 140, 200 160, 160 130" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/>
+                            <circle cx="160" cy="130" r="5" stroke="#FFD700" stroke-width="3" fill="none" />
+                        </g>
+
+                        <!-- Cabeza Principal -->
+                        <ellipse cx="100" cy="100" rx="65" ry="45" fill="#E6A8B5" stroke="#121212" stroke-width="3"/>
+                        
+                        <!-- Cara -->
+                        <circle cx="70" cy="100" r="5" fill="#121212"/>
+                        <circle cx="130" cy="100" r="5" fill="#121212"/>
+                        <path d="M 95 115 Q 100 120 105 115" stroke="#121212" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        
+                        <!-- X Mark -->
+                        <path d="M92 65 L108 81 M108 65 L92 81" stroke="#E6A8B5" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M92 65 L108 81 M108 65 L92 81" stroke="#FFD700" stroke-width="1" stroke-linecap="round" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Main Title -->
+            <div class="hover-trigger transform -rotate-2 w-full text-center z-20">
+                <h1 class="font-logo text-5xl sm:text-7xl md:text-8xl lg:text-9xl psych-text tracking-tighter leading-none break-words">
+                    AN<span class="highlight-x">X</span>OLOTES
+                </h1>
+            </div>
+            
+            <!-- Subtítulo -->
+            <div class="inline-block bg-black border border-[#B57F8D] px-4 md:px-6 py-2 transform rotate-1 max-w-[95vw] shadow-[4px_4px_0_#B57F8D]">
+                <p class="text-[#F5E6CA] text-sm sm:text-lg md:text-2xl font-bold tracking-widest uppercase text-center">
+                    Pop Ñero <span class="text-[#B57F8D] mx-2">///</span> Iztapalapa
+                </p>
+            </div>
+
+            <!-- Botones ANIMADOS (HERO - PRINCIPAL) -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4 w-full px-8 sm:px-0 pt-6 pb-4 z-30">
+                <a href="#music" class="hover-trigger btn-urban py-4 px-8 rounded-sm flex items-center justify-center gap-2 text-base font-bold w-full sm:w-auto hero-btn-simple">
+                    <i data-lucide="play-circle"></i> Escuchar Ahora
+                </a>
+                <!-- BOTÓN CONTRATACIONES PRINCIPAL (Con clase combinada) -->
+                <a href="#contact" class="hover-trigger btn-urban-outline py-4 px-8 rounded-sm flex items-center justify-center gap-2 text-base font-bold w-full sm:w-auto pop-in-and-pulse">
+                    <i data-lucide="calendar"></i> CONTRATACIONES
+                </a>
+            </div>
+        </div>
+        
+        <div class="marquee-wrapper">
+            <div class="marquee-content">
+                <div class="marquee-item"><span>⚠️ POP ÑERO</span><span>⚠️ IZTAPALAPA</span><span>⚠️ SKA FUSIÓN</span><span>⚠️ RESISTENCIA</span><span>⚠️ ANXOLOTES</span></div>
+                <div class="marquee-item"><span>⚠️ POP ÑERO</span><span>⚠️ IZTAPALAPA</span><span>⚠️ SKA FUSIÓN</span><span>⚠️ RESISTENCIA</span><span>⚠️ ANXOLOTES</span></div>
+                <div class="marquee-item"><span>⚠️ POP ÑERO</span><span>⚠️ IZTAPALAPA</span><span>⚠️ SKA FUSIÓN</span><span>⚠️ RESISTENCIA</span><span>⚠️ ANXOLOTES</span></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bio Section -->
+    <section id="bio" class="py-20 md:py-24 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+                <div class="relative z-10 order-2 md:order-1 reveal">
+                    <div class="bg-white/5 border-l-8 border-[#B57F8D] p-6 md:p-8 backdrop-blur-sm rounded-r-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                        <h2 class="font-logo text-4xl md:text-5xl mb-6 text-white drop-shadow-md">Génesis del Barrio</h2>
+                        <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 font-medium">
+                            Nacidos en los pasillos del <strong class="text-[#B57F8D] bg-black px-1">CCH Oriente</strong> (2014), somos el grito de Iztapalapa hecho música.
+                        </p>
+                        <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 font-medium">
+                            <span class="text-[#FFD700]">POP ÑERO:</span> Fusión de Ska, Reggae, Punk y Son Jarocho.
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-6 order-1 md:order-2">
+                    <div class="sticker-card p-6 rotate-2 bg-[#222] reveal stagger-delay">
+                        <div class="flex items-center gap-4"><i data-lucide="refresh-cw" class="text-[#B57F8D] w-10 h-10 animate-spin-slow"></i><div><h3 class="text-xl font-bold text-white uppercase">Regeneración</h3><p class="text-gray-400 text-sm">Como el ajolote, nos reconstruimos.</p></div></div>
+                    </div>
+                    <div class="sticker-card p-6 -rotate-1 bg-[#222] reveal stagger-delay">
+                        <div class="flex items-center gap-4"><i data-lucide="map-pin" class="text-[#FFD700] w-10 h-10"></i><div><h3 class="text-xl font-bold text-white uppercase">Iztapalapa</h3><p class="text-gray-400 text-sm">Orgullo de la periferia.</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section id="music" class="py-24 border-t border-gray-800 relative bg-[#111]">
+        <div class="max-w-6xl mx-auto px-4 relative z-10">
+            <h2 class="font-logo text-4xl md:text-5xl text-center mb-16 text-[#F5E6CA] drop-shadow-[4px_4px_0_#B57F8D] reveal">Música</h2>
+            
+            <!-- SPOTIFY PLAYER -->
+            <div class="mb-16 reveal">
+                <div class="sticker-card p-2 bg-[#1a1a1a]">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/4mdvLQtrD42efMWwHYYQPN?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="sticker-card p-2 group hover-trigger reveal">
+                    <div class="bg-[#B57F8D] aspect-square relative flex items-center justify-center overflow-hidden border-2 border-black">
+                        <span class="font-logo text-5xl md:text-6xl text-black rotate-[-10deg] z-10 drop-shadow-lg">4 CUARTOS</span>
+                        <div class="absolute bottom-4 right-4 bg-black text-[#FFD700] font-mono px-2 text-xs">EP 2025</div>
+                        <div class="absolute inset-0 bg-black/80 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="https://open.spotify.com/album/4CuartosExample" target="_blank" class="hover:scale-110 transition bg-[#1DB954] p-3 rounded-full text-black"><i data-lucide="play" class="w-8 h-8"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white text-black"><h3 class="text-xl md:text-2xl font-black uppercase">4 Cuartos</h3><p class="text-sm font-bold opacity-80">INCLUYE: Granito de Arroz • Agua Salió</p></div>
+                </div>
+                <div class="sticker-card p-2 group hover-trigger rotate-1 reveal stagger-delay">
+                    <div class="bg-[#333] aspect-square relative flex items-center justify-center overflow-hidden border-2 border-black">
+                        <span class="font-logo text-4xl md:text-5xl text-[#F5E6CA] rotate-[5deg] z-10 drop-shadow-lg text-center leading-none">EN BUSCA<br>DE AMOR</span>
+                        <div class="absolute bottom-4 right-4 bg-black text-white font-mono px-2 text-xs">EP 2018</div>
+                         <div class="absolute inset-0 bg-black/80 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="https://open.spotify.com/album/EnBuscaExample" target="_blank" class="hover:scale-110 transition bg-[#1DB954] p-3 rounded-full text-black"><i data-lucide="play" class="w-8 h-8"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white text-black"><h3 class="text-xl md:text-2xl font-black uppercase">En Busca de Amor</h3><p class="text-sm font-bold opacity-80">Debut • Prod: Arturo Waldo Leal</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Press -->
+    <section id="press" class="py-24 bg-[#0a0a0a]">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="font-logo text-4xl md:text-5xl text-center mb-12 text-white reveal">En la Calle</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <a href="https://www.excelsior.com.mx/" target="_blank" class="block hover-trigger sticker-card bg-black p-8 group reveal">
+                    <i data-lucide="quote" class="text-[#FFD700] w-8 h-8 mb-4"></i>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">"ANXOLOTES renuevan el SKA y toman el Metro de la CDMX."</h3>
+                    <div class="flex items-center justify-between mt-6 border-t border-gray-700 pt-4"><span class="font-mono text-[#F5E6CA] font-bold">EXCÉLSIOR</span><i data-lucide="external-link" class="text-gray-500 group-hover:text-white"></i></div>
+                </a>
+                <a href="https://www.somoselmedio.com/" target="_blank" class="block hover-trigger sticker-card bg-black p-8 group md:mt-8 reveal stagger-delay">
+                    <i data-lucide="quote" class="text-[#B57F8D] w-8 h-8 mb-4"></i>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">"Una banda conectada con sus raíces y la preservación del Ajolote."</h3>
+                    <div class="flex items-center justify-between mt-6 border-t border-gray-700 pt-4"><span class="font-mono text-[#F5E6CA] font-bold">SOMOS EL MEDIO</span><i data-lucide="external-link" class="text-gray-500 group-hover:text-white"></i></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Members -->
+    <section id="members" class="py-24 bg-[#111] relative border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-logo text-4xl md:text-5xl text-center mb-16 text-[#F5E6CA] reveal">La Pandilla</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-[#B57F8D]"><i data-lucide="mic-2" class="text-white w-8 h-8"></i></div><h4 class="font-black text-white text-lg">VENADO</h4><span class="bg-[#B57F8D] text-black text-[10px] font-bold px-2 py-0.5 uppercase">Voz</span></div>
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-[#B57F8D]"><i data-lucide="mic" class="text-white w-8 h-8"></i></div><h4 class="font-black text-white text-lg">SANGRE</h4><span class="bg-[#B57F8D] text-black text-[10px] font-bold px-2 py-0.5 uppercase">Voz</span></div>
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-[#FFD700]"><span class="font-logo text-white">Tp</span></div><h4 class="font-black text-white text-lg">RACOON</h4><span class="bg-[#FFD700] text-black text-[10px] font-bold px-2 py-0.5 uppercase">Trompeta</span></div>
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-[#FFD700]"><span class="font-logo text-white">Sx</span></div><h4 class="font-black text-white text-lg">WICHO</h4><span class="bg-[#FFD700] text-black text-[10px] font-bold px-2 py-0.5 uppercase">Sax</span></div>
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-[#FFD700]"><span class="font-logo text-white">Tb</span></div><h4 class="font-black text-white text-lg">HAZEL</h4><span class="bg-[#FFD700] text-black text-[10px] font-bold px-2 py-0.5 uppercase">Trombón</span></div>
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-white"><i data-lucide="music" class="text-white w-6 h-6"></i></div><h4 class="font-black text-white text-lg">ELIOT</h4><span class="bg-white text-black text-[10px] font-bold px-2 py-0.5 uppercase">Teclado</span></div>
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-white"><i data-lucide="drum" class="text-white w-6 h-6"></i></div><h4 class="font-black text-white text-lg">YEYO</h4><span class="bg-white text-black text-[10px] font-bold px-2 py-0.5 uppercase">Batería</span></div>
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-white"><span class="font-logo text-white">Bj</span></div><h4 class="font-black text-white text-lg">YOSH</h4><span class="bg-white text-black text-[10px] font-bold px-2 py-0.5 uppercase">Bajo</span></div>
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-white"><i data-lucide="guitar" class="text-white w-6 h-6"></i></div><h4 class="font-black text-white text-lg">BOROS</h4><span class="bg-white text-black text-[10px] font-bold px-2 py-0.5 uppercase">Guitarra</span></div>
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-white"><i data-lucide="guitar" class="text-white w-6 h-6"></i></div><h4 class="font-black text-white text-lg">NERI</h4><span class="bg-white text-black text-[10px] font-bold px-2 py-0.5 uppercase">Guitarra</span></div>
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-white"><i data-lucide="hand" class="text-white w-6 h-6"></i></div><h4 class="font-black text-white text-lg">LECHUGA</h4><span class="bg-white text-black text-[10px] font-bold px-2 py-0.5 uppercase">Percusiones</span></div>
+                <div class="sticker-card p-4 text-center hover-trigger group reveal stagger-delay"><div class="w-16 h-16 bg-black rounded-full mx-auto mb-3 flex items-center justify-center border-2 border-white"><i data-lucide="sliders" class="text-white w-6 h-6"></i></div><h4 class="font-black text-white text-lg">ATZIN</h4><span class="bg-white text-black text-[10px] font-bold px-2 py-0.5 uppercase">Audio</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: MATERIAL OFICIAL (DESCARGAS) -->
+    <section id="downloads" class="py-24 bg-[#111] border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h2 class="font-logo text-4xl md:text-5xl mb-12 text-[#F5E6CA] reveal">Material Oficial</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+                <div class="sticker-card p-6 bg-black group hover-trigger cursor-pointer reveal">
+                    <i data-lucide="image" class="w-12 h-12 text-[#B57F8D] mx-auto mb-4 group-hover:scale-110 transition"></i>
+                    <h3 class="text-white font-bold text-xl mb-2">LOGOS</h3>
+                    <p class="text-gray-400 text-sm">Vectores y PNGs en alta resolución.</p>
+                    <div class="mt-4 text-[#B57F8D] text-xs font-bold uppercase tracking-widest group-hover:underline">Descargar</div>
+                </div>
+                <div class="sticker-card p-6 bg-black group hover-trigger cursor-pointer reveal stagger-delay">
+                    <i data-lucide="camera" class="w-12 h-12 text-[#FFD700] mx-auto mb-4 group-hover:scale-110 transition"></i>
+                    <h3 class="text-white font-bold text-xl mb-2">FOTOS HD</h3>
+                    <p class="text-gray-400 text-sm">Sesiones oficiales para prensa y carteles.</p>
+                    <div class="mt-4 text-[#FFD700] text-xs font-bold uppercase tracking-widest group-hover:underline">Descargar</div>
+                </div>
+                <div class="sticker-card p-6 bg-black group hover-trigger cursor-pointer reveal stagger-delay">
+                    <i data-lucide="file-text" class="w-12 h-12 text-white mx-auto mb-4 group-hover:scale-110 transition"></i>
+                    <h3 class="text-white font-bold text-xl mb-2">RIDER TÉCNICO</h3>
+                    <p class="text-gray-400 text-sm">Stage plot, input list y requerimientos.</p>
+                    <div class="mt-4 text-white text-xs font-bold uppercase tracking-widest group-hover:underline">Descargar PDF</div>
+                </div>
+            </div>
+
+            <button class="hover-trigger btn-urban px-10 py-5 text-xl rounded-sm flex items-center justify-center gap-3 mx-auto reveal stagger-delay">
+                <i data-lucide="folder-archive" class="w-6 h-6"></i>
+                DESCARGAR TODO (ZIP)
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <section id="contact" class="py-24 bg-[#0a0a0a] relative overflow-hidden border-t border-gray-800">
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="font-logo text-4xl md:text-6xl mb-8 text-white drop-shadow-[4px_4px_0_var(--color-mauve)] reveal">¿Se Arma?</h2>
+            
+            <a href="mailto:veni.whitedread@gmail.com" class="hover-trigger inline-block bg-white text-black font-black text-lg md:text-3xl py-4 px-8 transform rotate-1 hover:rotate-0 transition shadow-[6px_6px_0px_var(--color-gold)] border-2 border-black break-all md:break-normal reveal stagger-delay">
+                veni.whitedread@gmail.com
+            </a>
+            
+            <p class="text-[#FFD700] text-2xl md:text-3xl mt-12 mb-12 font-mono font-bold tracking-widest reveal stagger-delay">+52 55 3251 1831</p>
+
+            <div class="flex justify-center gap-10 mt-10 reveal stagger-delay">
+                <a href="https://open.spotify.com/artist/2qzgkpv" target="_blank" class="hover-trigger text-gray-500 hover:text-[#1DB954] transition transform hover:scale-125"><i data-lucide="music-2" class="w-10 h-10"></i></a>
+                <a href="https://www.instagram.com/anxolotes" target="_blank" class="hover-trigger text-gray-500 hover:text-[#E1306C] transition transform hover:scale-125"><i data-lucide="instagram" class="w-10 h-10"></i></a>
+                <a href="https://www.facebook.com/anxolotes" target="_blank" class="hover-trigger text-gray-500 hover:text-[#1877F2] transition transform hover:scale-125"><i data-lucide="facebook" class="w-10 h-10"></i></a>
+            </div>
+        </div>
+        
+        <div class="mt-20 border-t border-gray-800 pt-8"><p class="text-gray-600 text-sm uppercase font-bold tracking-widest text-center">&copy; 2025 ANXOLOTES. <span class="text-[#B57F8D]">Hecho en Iztapalapa.</span></p></div>
+    </section>
+
+    <script>
+        lucide.createIcons();
+
+        // Cursor logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('.hover-trigger, a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        document.addEventListener('mouseout', () => cursor.style.display = 'none');
+        document.addEventListener('mouseover', () => cursor.style.display = 'block');
+
+        // Smooth Scroll Fix with offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Intersection Observer for Scroll Reveals
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1 // Reveal earlier on mobile
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
