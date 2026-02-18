@@ -12,6 +12,9 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Leaflet CSS (Mapa) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -287,7 +290,7 @@
             100% { transform: translate(0, -1.5px); }
         }
         
-        /* Clase para el icono del ajolote */
+        /* Clase para el icono del ajolote (LISTA) */
         .axo-icon {
             display: inline-block;
             vertical-align: middle;
@@ -298,6 +301,28 @@
             top: -5px; /* Subirlos un poco para que queden centrados con las letras */
             /* Animación circular muy leve */
             animation: gentle-circle 4s infinite linear;
+        }
+
+        /* --- ESTILOS MAPA --- */
+        #map {
+            height: 450px;
+            width: 100%;
+            z-index: 1;
+            border: 4px solid white;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+        }
+        
+        /* Personalización de popup del mapa para que sea oscura */
+        .leaflet-popup-content-wrapper {
+            background: #1a1a1a;
+            color: #F5E6CA;
+            border: 2px solid #D45D79;
+            border-radius: 0;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .leaflet-popup-tip {
+            background: #1a1a1a;
+            border: 2px solid #D45D79;
         }
     </style>
 </head>
@@ -578,7 +603,7 @@
             </div>
 
             <!-- ESCENARIOS Y FESTIVALES (Grid) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-24">
                 <!-- Recintos -->
                 <div class="reveal stagger-delay">
                     <h3 class="font-logo text-3xl md:text-4xl text-[#F5E6CA] mb-6 text-center md:text-left"><i data-lucide="map" class="inline mb-2 mr-2"></i> Recintos</h3>
@@ -605,6 +630,7 @@
                 <!-- Festivales -->
                 <div class="reveal stagger-delay">
                      <h3 class="font-logo text-3xl md:text-4xl text-[#FFD700] mb-6 text-center md:text-left"><i data-lucide="ticket" class="inline mb-2 mr-2"></i> Festivales</h3>
+                     <!-- Se cambió a sticker-static para quitar el zoom -->
                      <div class="sticker-static bg-[#222] p-6 h-80 overflow-y-auto custom-scrollbar">
                         <ul class="space-y-4 text-white font-bold uppercase text-sm md:text-base">
                             <li class="border-b border-gray-700 pb-2">Monumento a la Revolución (Corazon Chilango)</li>
@@ -620,6 +646,12 @@
                      </div>
                 </div>
             </div>
+
+            <!-- MAPA INTERACTIVO -->
+            <div class="reveal">
+                <h3 class="font-logo text-3xl md:text-4xl text-white mb-6 text-center"><i data-lucide="map-pin" class="inline mb-2 mr-2 text-[#D45D79]"></i> Ubicación de Recintos</h3>
+                <div id="map"></div>
+            </div>
         </div>
     </section>
 
@@ -628,7 +660,7 @@
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="font-logo text-4xl md:text-5xl text-center mb-12 text-white reveal">En los Medios</h2>
             
-            <!-- Grid de Medios (Logos Textuales) -->
+            <!-- Grid de Medios (Logos Textuales) - Ahora estático -->
             <div class="sticker-static p-8 bg-black mb-12 reveal">
                 <h3 class="text-[#B57F8D] font-bold uppercase tracking-widest mb-6 border-b border-gray-800 pb-2">Prensa, Radio y TV</h3>
                 <div class="flex flex-wrap gap-x-6 gap-y-3 text-gray-400 font-mono text-sm md:text-base justify-center">
@@ -732,6 +764,9 @@
         <div class="mt-20 border-t border-gray-800 pt-8"><p class="text-gray-600 text-sm uppercase font-bold tracking-widest text-center">&copy; 2025 ANXOLOTES. <span class="text-[#B57F8D]">Hecho en Iztapalapa.</span></p></div>
     </section>
 
+    <!-- Leaflet JS (Mapa) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <script>
         lucide.createIcons();
 
@@ -782,6 +817,80 @@
 
         document.querySelectorAll('.reveal').forEach(el => {
             observer.observe(el);
+        });
+
+        // --- MAPA LEAFLET ---
+        // Coordenadas aproximadas de los recintos
+        const locations = [
+            { name: "Museo Yancuic", coords: [19.3387, -99.0682] },
+            { name: "CU (Fac. Ciencias)", coords: [19.3242, -99.1802] },
+            { name: "Casa del Lago", coords: [19.4239, -99.1887] },
+            { name: "Museo Cultural del Chopo", coords: [19.4419, -99.1565] },
+            { name: "Deportivo Xochimilco", coords: [19.2562, -99.1039] },
+            { name: "CCH Oriente", coords: [19.3876, -99.0565] },
+            { name: "FES Zaragoza", coords: [19.3870, -99.0490] },
+            { name: "ESIME Culhuacan", coords: [19.3132, -99.1130] },
+            { name: "UACM", coords: [19.3167, -99.0617] },
+            { name: "UAM Lerma", coords: [19.2925, -99.4975] },
+            { name: "UAM Azcapotzalco", coords: [19.5028, -99.1866] },
+            { name: "Chapingo", coords: [19.4947, -98.8828] },
+            { name: "CC Mexiquense Bicentenario", coords: [19.4300, -98.9220] },
+            { name: "Multiforo Alicia", coords: [19.4170, -99.1570] },
+            { name: "Faro Oriente", coords: [19.3686, -99.0225] },
+            { name: "Alcaldía Iztapalapa", coords: [19.3582, -99.0930] },
+            { name: "Tianguis Cultural del Chopo", coords: [19.4440, -99.1510] },
+            { name: "Glorieta de Insurgentes", coords: [19.4235, -99.1630] },
+            { name: "Metro Zapata", coords: [19.3707, -99.1654] },
+            { name: "Metro Chabacano", coords: [19.4086, -99.1359] },
+            { name: "Pirámide de Cholula", coords: [19.0577, -98.3025] }
+        ];
+
+        // Inicializar mapa centrado en CDMX
+        var map = L.map('map').setView([19.4326, -99.1332], 10);
+
+        // Usar capa oscura (Dark Matter de CartoDB)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Icono personalizado (Ajolotito SVG DETALLADO con animación gentle-circle)
+        var axoIcon = L.divIcon({
+            className: 'custom-div-icon',
+            html: `<div style="color: #D45D79; transform: scale(1.2);">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:25px; height:25px; filter: drop-shadow(0 0 5px #D45D79); animation: gentle-circle 4s infinite linear;">
+                        <g class="gill-left-top"><path d="M 45 85 C 10 50, -20 60, 25 85" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M 25 85 L 15 80" stroke="#FF00FF" stroke-width="2" opacity="0.6"/></g>
+                        <g class="gill-left-mid"><path d="M 40 100 C 0 90, -25 110, 30 105" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/><circle cx="30" cy="105" r="5" stroke="#FFD700" stroke-width="3" fill="none" /></g>
+                        <g class="gill-left-bot"><path d="M 45 115 C 10 140, 0 160, 40 130" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/><circle cx="40" cy="130" r="5" stroke="#FFD700" stroke-width="3" fill="none" /></g>
+                        <g class="gill-right-top"><path d="M 155 85 C 190 50, 220 60, 175 85" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M 175 85 L 185 80" stroke="#FF00FF" stroke-width="2" opacity="0.6"/></g>
+                        <g class="gill-right-mid"><path d="M 160 100 C 200 90, 225 110, 170 105" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/><circle cx="170" cy="105" r="5" stroke="#FFD700" stroke-width="3" fill="none" /></g>
+                        <g class="gill-right-bot"><path d="M 155 115 C 190 140, 200 160, 160 130" stroke="#D45D79" stroke-width="14" stroke-linecap="round" fill="none"/><circle cx="160" cy="130" r="5" stroke="#FFD700" stroke-width="3" fill="none" /></g>
+                        <ellipse cx="100" cy="100" rx="65" ry="45" fill="#E6A8B5" stroke="#121212" stroke-width="3"/>
+                        <circle cx="70" cy="100" r="5" fill="#121212"/>
+                        <circle cx="130" cy="100" r="5" fill="#121212"/>
+                        <path d="M 95 115 Q 100 120 105 115" stroke="#121212" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <path d="M92 65 L108 81 M108 65 L92 81" stroke="#E6A8B5" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M92 65 L108 81 M108 65 L92 81" stroke="#FFD700" stroke-width="1" stroke-linecap="round" fill="none"/>
+                    </svg>
+                   </div>`,
+            iconSize: [25, 25],
+            iconAnchor: [12, 12],
+            popupAnchor: [0, -15]
+        });
+
+        // Agregar marcadores con evento de clic para Zoom
+        locations.forEach(loc => {
+            var marker = L.marker(loc.coords, { icon: axoIcon }).addTo(map);
+            marker.bindPopup(`<b>${loc.name}</b>`);
+            
+            // Evento click: Zoom y centrado suave
+            marker.on('click', function(e) {
+                map.flyTo(e.latlng, 16, {
+                    duration: 1.5 // Duración del vuelo en segundos
+                });
+                this.openPopup();
+            });
         });
     </script>
 </body>
